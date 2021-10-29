@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Traveller } = require('../../../../../lessons/13-ORM/01-Activities/28-Stu_Mini-Project/Main/models');
+const { Traveller } = require('../../../../lessons/13-ORM/01-Activities/28-Stu_Mini-Project/Main/models');
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
