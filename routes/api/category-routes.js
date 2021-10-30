@@ -5,9 +5,12 @@ const { Category, Product } = require('../../models');
 
 router.get('/', async (req, res) => {
   try {
-    const categoryData = await Category.findAll();
+    const categoryData = await Category.findAll({
+      include: Product
+    });
     res.status(200).json(categoryData);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err)
   }
   // find all categories
@@ -28,6 +31,7 @@ router.get('/:id', async (req, res) => {
 
     res.status(200).json(categoryData);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
   // find one category by its `id` value
@@ -39,6 +43,7 @@ router.post('/', async (req, res) => {
     const categoryData = await Category.create(req.body);
     res.status(200).json(categoryData);
   } catch (err) {
+    console.log(err)
     res.status(400).json(err)
   }
   // create a new category
@@ -54,7 +59,8 @@ router.put('/:id', (req, res) => {
   .then((updatedCategory) => {
     res.json(updatedCategory)
   })
-  .catch((err) => res.json(err))
+  .catch((err) => res.json(err),
+  console.log(err))
 });
 
 router.delete('/:id', async (req, res) => {
@@ -72,6 +78,7 @@ router.delete('/:id', async (req, res) => {
 
     res.status(200).json(categoryData);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
   // delete a category by its `id` value

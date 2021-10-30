@@ -6,10 +6,13 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // get all products
 router.get('/', async (req, res) => {
   try {
-    const productData = await Product.findAll();
+    const productData = await Product.findAll({
+      include: [{ model: Tag}, {model: Category}]
+    })
     res.status(200).json(productData);
   } catch (err) {
     res.status(500).json(err);
+    console.log(err)
   }
   // find all products
   // be sure to include its associated Category and Tag data
@@ -30,6 +33,7 @@ router.get('/:id', async (req, res) => {
     res.status(200).json(productData);
   } catch (err) {
     res.status(500).json(err)
+    console.log(err)
   }
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
@@ -104,7 +108,7 @@ router.put('/:id', (req, res) => {
     })
     .then((updatedProductTags) => res.json(updatedProductTags))
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
       res.status(400).json(err);
     });
 });
@@ -124,6 +128,7 @@ router.delete('/:id', async (req, res) => {
 
     res.status(200).json(productData);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
   // delete one product by its `id` value
